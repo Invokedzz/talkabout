@@ -1,11 +1,5 @@
-import { myserver } from "./website";
+import myserver from "./website";
 
-import { validatingthings } from "./validators";
+const server = new myserver();
 
-const start = new myserver();
-
-const validation = new validatingthings();
-
-validation.validatestart();
-
-start.listen();
+server.listen();

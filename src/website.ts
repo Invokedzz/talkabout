@@ -1,5 +1,9 @@
 import express from "express";
 
+import validatingthings from "./validators";
+
+import { home, login, register } from "./routes";
+
 const app = express();
 
 const port = process.env.PORT || 8443;
@@ -12,17 +16,18 @@ export class myserver {
 
         app.use(express.urlencoded({ extended: true }));
 
+        const validate = new validatingthings();
+        app.use(validate.validatestart);
+
     };
 
     private serverget (): void {
 
+        app.get('/', login);
 
+        app.get('/register', register);
 
-    };
-
-    private serverpost (): void {
-
-
+        app.get('/home', home);
 
     };
 
@@ -32,10 +37,6 @@ export class myserver {
 
         this.serverget();
 
-        this.serverpost();
-
-        if (require.main === module) {
-
             app.listen(port, (): void => {
 
                 console.log(`http://localhost:${port}`);
@@ -44,8 +45,6 @@ export class myserver {
 
         };
 
-        module.exports = app;
-
     };
 
-}
+export default myserver;

@@ -8,7 +8,7 @@ import session from "express-session";
 
 const app = express();
 
-export class validatingthings {
+export default class validatingthings {
 
     private session (): void {
 
