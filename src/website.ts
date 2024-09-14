@@ -1,7 +1,5 @@
 import express from "express";
 
-import validatingthings from "./validators";
-
 import { home, login, register } from "./routes";
 
 const app = express();
@@ -15,9 +13,6 @@ export class myserver {
         app.use(express.json());
 
         app.use(express.urlencoded({ extended: true }));
-
-        const validate = new validatingthings();
-        app.use(validate.validatestart);
 
     };
 
