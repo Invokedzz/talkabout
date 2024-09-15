@@ -1,6 +1,6 @@
 import express from "express";
 
-import { home, login, register } from "./routes";
+import { home, login, register, error } from "./routes";
 
 import { validateLogin, validateRegister, sendTopic } from "./validatorsroutes";
 
@@ -42,6 +42,8 @@ export class myserver {
         app.get('/register', validateRegister, register);
 
         app.get('/home', home);
+
+        app.get('*', error);
 
     };
 
