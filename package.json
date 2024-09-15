@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Sistema de comentários com login/register",
   "main": "index.js",
-  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node ./src/index.ts",
@@ -23,6 +22,7 @@
     "express": "^4.21.0",
     "express-rate-limit": "^7.4.0",
     "express-session": "^1.18.0",
+    "express-validator": "^7.2.0",
     "helmet": "^7.1.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.11.2",
