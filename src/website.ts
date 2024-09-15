@@ -37,9 +37,9 @@ export class myserver {
 
     private serverget (): void {
 
-        app.get('/', login);
+        app.get('/', validateLogin, login);
 
-        app.get('/register', register);
+        app.get('/register', validateRegister, register);
 
         app.get('/home', home);
 
