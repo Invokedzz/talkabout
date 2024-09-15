@@ -2,18 +2,18 @@ import { Request, Response } from "express";
 
 export const login = (req: Request, res: Response): void => {
 
-    res.send("Testando...");
+    res.render('login')
 
 };
 
 export const register = (req: Request, res: Response): void => {
 
-    res.send("Registering");
+    res.render('register');
 
 };
 
 export const home = (req: Request, res: Response): void => {
 
-    res.send("Home");
+    res.render('home');
 
 };
