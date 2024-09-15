@@ -2,6 +2,8 @@ import express from "express";
 
 import { home, login, register } from "./routes";
 
+import { validateLogin, validateRegister, sendTopic } from "./validatorsroutes";
+
 import path from "path";
 
 import { engine } from "express-handlebars";
