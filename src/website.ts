@@ -1,6 +1,15 @@
 import express from "express";
 
-import { home, login, register, error } from "./routes";
+import { 
+
+    home,
+     loginGET,
+      loginPOST,
+       registerGET,
+        registerPOST,
+         error
+
+        } from "./routes";
 
 import { validateLogin, validateRegister, sendTopic } from "./validatorsroutes";
 
@@ -54,13 +63,21 @@ export class myserver {
 
     private serverget (): void {
 
-        app.get('/', validateLogin, login);
+        app.get('/', validateLogin, loginGET);
 
-        app.get('/register', validateRegister, register);
+        app.get('/register', validateRegister, registerGET);
 
         app.get('/home', home);
 
         app.get('*', error);
+
+    };
+
+    private serverpost (): void {
+
+        app.post('/registeruser', validateRegister, registerPOST);
+
+        app.post('/loginuser', validateLogin, loginPOST);
 
     };
 
@@ -72,11 +89,19 @@ export class myserver {
 
         this.serverget();
 
+        this.serverpost();
+
+        if (require.main === module) {
+
             app.listen(port, (): void => {
 
                 console.log(`http://localhost:${port}`);
+    
+            });
 
-        });
+        };
+
+        module.exports = app;
 
     };
 
