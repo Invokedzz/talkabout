@@ -10,6 +10,12 @@ export const loginGET = (req: Request, res: Response): void => {
 
 export const loginPOST = async (req: Request, res: Response): Promise <void> => {
 
+    const username = req.body.username;
+
+    const password = req.body.password;
+
+    res.send(`Username: ${username}, Password: ${password}`);
+
 };
 
 export const registerGET = (req: Request, res: Response): void => {
@@ -19,6 +25,14 @@ export const registerGET = (req: Request, res: Response): void => {
 };
 
 export const registerPOST = async (req: Request, res: Response): Promise <void> => {
+
+    const username = req.body.username;
+
+    const email = req.body.email;
+
+    const password = req.body.password;
+
+    res.send(`Username: ${username}, Email: ${email}, Password: ${password}`);
 
 };
 

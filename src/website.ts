@@ -91,17 +91,11 @@ export class myserver {
 
         this.serverpost();
 
-        if (require.main === module) {
-
             app.listen(port, (): void => {
 
                 console.log(`http://localhost:${port}`);
     
             });
-
-        };
-
-        module.exports = app;
 
     };
 
