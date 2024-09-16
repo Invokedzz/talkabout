@@ -36,6 +36,8 @@ export const loginPOST = async (req: Request, res: Response): Promise <void> => 
 
         };
 
+        res.render('error');
+
     } catch (e) {
 
         console.error("Something happened: ", e);
