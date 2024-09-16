@@ -1,5 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 
+import validator from "validator";
+
+import bcrypt from "bcryptjs";
+
+import { validation } from "./validatorsroutes";
+
 import { createPool } from "./database";
 
 export const loginGET = (req: Request, res: Response): void => {
@@ -26,13 +32,28 @@ export const registerGET = (req: Request, res: Response): void => {
 
 export const registerPOST = async (req: Request, res: Response): Promise <void> => {
 
-    const username = req.body.username;
+    const username: string = req.body.username;
 
-    const email = req.body.email;
+    const email: string = req.body.email;
 
-    const password = req.body.password;
+    const password: string = req.body.password;
 
-    res.render('receiveuser');
+    validation(username, email, password);
+
+    try {
+
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        await createPool.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, passwordHash]);
+
+       res.render('receiveuser', {username});
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
 
 };
 

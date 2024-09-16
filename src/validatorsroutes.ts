@@ -1,5 +1,7 @@
 import { body } from "express-validator";
 
+import validator from "validator";
+
 export const validateLogin = [
 
     body('username')
@@ -52,3 +54,19 @@ export const sendTopic = [
     .withMessage('Insert a valid content, with (minimum: 5, maximum: 300) characters'),
 
 ];
+
+export function validation (
+
+    username: string,
+    email: string,
+    password: string,
+
+): void {
+
+    if (!validator.isEmail(email) && username.length < 5) return;
+
+    if (password.length < 4) return;
+
+    if (!username && !password && !email) return;
+
+};
