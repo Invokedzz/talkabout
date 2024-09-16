@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 
-import validator from "validator";
-
 import bcrypt from "bcryptjs";
 
-import { validation } from "./validatorsroutes";
+import jwt from "jsonwebtoken";
+
+import { validationRegister, validationLogin } from "./validatorsroutes";
 
 import { createPool } from "./database";
 
@@ -16,11 +16,32 @@ export const loginGET = (req: Request, res: Response): void => {
 
 export const loginPOST = async (req: Request, res: Response): Promise <void> => {
 
-    const username = req.body.username;
+    const username: string = req.body.username;
 
-    const password = req.body.password;
+    const password: string = req.body.password;
 
-    res.send(`Username: ${username}, Password: ${password}`);
+    validationLogin(username, password);
+
+    try {
+
+        const [rows]: any = await createPool.query('SELECT * FROM users WHERE username = ?', [username]);
+
+        const user = rows[0];
+
+        if (user && await bcrypt.compare(password, user.password)) {
+        
+        jwt.sign({ id: user.id }, 'secret', { expiresIn: '1h' });
+        
+        res.render('home', {username});
+
+        };
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
 
 };
 
@@ -38,7 +59,7 @@ export const registerPOST = async (req: Request, res: Response): Promise <void> 
 
     const password: string = req.body.password;
 
-    validation(username, email, password);
+    validationRegister(username, email, password);
 
     try {
 

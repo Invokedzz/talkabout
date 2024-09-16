@@ -55,7 +55,7 @@ export const sendTopic = [
 
 ];
 
-export function validation (
+export function validationRegister (
 
     username: string,
     email: string,
@@ -68,5 +68,18 @@ export function validation (
     if (password.length < 4) return;
 
     if (!username && !password && !email) return;
+
+};
+
+export function validationLogin (
+
+    username: string,
+    password: string,
+
+): void {
+
+    if (validator.isEmpty(username) && validator.isEmpty(password)) return;
+
+    if (username.length < 5 && password.length < 4) return;
 
 };
