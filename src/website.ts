@@ -7,7 +7,10 @@ import {
       loginPOST,
        registerGET,
         registerPOST,
-         error
+        createtopicGET,
+        createtopicPOST,
+        viewtopics,
+         error,
 
         } from "./routes";
 
@@ -68,6 +71,12 @@ export class myserver {
         app.get('/register', validateRegister, registerGET);
 
         app.get('/home', home);
+
+        app.get('/createtopic', sendTopic, createtopicGET);
+
+        app.get('/receivetopics', createtopicPOST);
+
+        app.get('/viewtopics', viewtopics);
 
         app.get('*', error);
 

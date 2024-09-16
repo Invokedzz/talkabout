@@ -86,6 +86,24 @@ export const home = (req: Request, res: Response): void => {
 
 };
 
+export const createtopicGET = (req: Request, res: Response): void => {
+
+    res.render('createtopic');
+
+};
+
+export const createtopicPOST = async (req: Request, res: Response): Promise <void> => {
+
+    res.render('receivetopics');
+
+};
+
+export const viewtopics = (req: Request, res: Response): void => {
+
+    res.render('viewtopics');
+
+};
+
 export const error = (req: Request, res: Response, next: NextFunction): void => {
 
     res.sendStatus(404);

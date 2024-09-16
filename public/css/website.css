@@ -97,6 +97,10 @@ nav ul li a:hover {
     transition: background-color 0.3s;
 }
 
+.box nav {
+    background-color: #2e2e2e;
+}
+
 .cta-button:hover {
     background-color: #0056b3;
 }
@@ -155,4 +159,64 @@ footer {
 
 footer p {
     font-size: 1em;
+}
+
+.chatblock {
+    background: #2e2e2e;
+    padding: 20px;
+    margin: 20px;
+    margin-top: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+}
+
+.chatblock h2 {
+    color: #fff;
+}
+
+.topic-form {
+    background-color: #201f1f; 
+    color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.topic-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.topic-form input,
+.topic-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #3a3a3a;
+    color: #f0f0f0;
+}
+
+
+.topic-form button {
+    background-color: #4c86af; 
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.4s all;
+}
+
+.topic-form button:hover {
+    background-color: #4553a0; 
+}
+
+
+.topic-form .form-group {
+    margin-bottom: 16px;
 }
