@@ -4,7 +4,14 @@ import bcrypt from "bcryptjs";
 
 import jwt from "jsonwebtoken";
 
-import { validationRegister, validationLogin } from "./validatorsroutes";
+import {
+    
+     validationRegister,
+     validationLogin,
+     validateTopic,
+     validateemptytopic,
+
+    } from "./validatorsroutes";
 
 import { createPool } from "./database";
 

@@ -4,7 +4,7 @@
         <div class="chatblock">    
             <div class="box">
                 {{> partials}}
-                <h2>Add a New Book</h2>
+                <h2>Add a New Topic</h2>
                 <form action="/bookreceived" method="POST" class="topic-form">
                     <div class="form-group">
                         <label for="title">Title:</label>
@@ -12,18 +12,14 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="author">Author:</label>
-                        <input type="text" name="author" required>
+                        <label for="theme">Theme:</label>
+                        <input type="text" name="theme" required>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="year">Publication Year:</label>
-                        <input type="number" name="year" min="1000" max="2100" required>
-                    </div>
                     
                     <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea name="description" rows="4" required></textarea>
+                        <label for="text">Text:</label>
+                        <textarea name="text" rows="4" required></textarea>
                     </div>
                     
                     <button type="submit">Add Topic</button>
