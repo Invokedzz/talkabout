@@ -8,6 +8,8 @@ import path from "path";
 
 import { engine } from "express-handlebars";
 
+import rateLimit from "express-rate-limit";
+
 const app = express();
 
 const port = process.env.PORT || 8443;
@@ -24,6 +26,21 @@ app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, '../views'));
 
 export class myserver {
+
+    private limiter (): void {
+
+        const limiter = rateLimit({
+
+            windowMs: 15 * 60 * 1000,
+            max: 100,
+            standardHeaders: true,
+            legacyHeaders: false
+
+        });
+
+        app.use(limiter);
+
+    };
 
     private expresschanges (): void {
 
@@ -48,6 +65,8 @@ export class myserver {
     };
 
     public listen (): void {
+
+        this.limiter();
 
         this.expresschanges();
 
