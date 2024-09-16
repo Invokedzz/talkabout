@@ -32,7 +32,7 @@ export const registerPOST = async (req: Request, res: Response): Promise <void> 
 
     const password = req.body.password;
 
-    res.send(`Username: ${username}, Email: ${email}, Password: ${password}`);
+    res.render('receiveuser');
 
 };
 
