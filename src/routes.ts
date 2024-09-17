@@ -32,7 +32,7 @@ export const loginPOST = async (req: Request, res: Response): Promise <void> => 
 
     try {
 
-        const [rows]: any = await createPool.query('SELECT * FROM users WHERE username = ?', [username]);
+        const [rows]: any = await createPool.query('SELECT * FROM users WHERE username = ?', [username, password]);
 
         const user = rows[0];
 
@@ -40,7 +40,7 @@ export const loginPOST = async (req: Request, res: Response): Promise <void> => 
 
         jwt.sign({ id: user.id }, 'secret', { expiresIn: '1h' });
         
-        res.render('home', {username});
+        res.render('profile', {username, password});
 
         };
 
@@ -89,12 +89,10 @@ export const registerPOST = async (req: Request, res: Response): Promise <void> 
 };
 
 export const profile = async (req: Request, res: Response): Promise <void> => {
-    
-    const id = req.params.id;
 
     try {
 
-        const [rows]: any = await createPool.query('SELECT * FROM users WHERE id = ?', [id]);
+        const [rows]: any = await createPool.query('SELECT * FROM users');
 
         const user = rows[0];
 

@@ -75,7 +75,7 @@ export class myserver {
 
         app.get('/home', home);
 
-        app.get('/profile', profile);
+        app.get('/profile/:id', profile);
 
         app.get('/createtopic', sendTopic, createtopicGET);
 
