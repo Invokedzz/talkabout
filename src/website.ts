@@ -75,7 +75,7 @@ export class myserver {
 
         app.get('/home', home);
 
-        app.get('/profile/:id', profile);
+        app.get('/profile', profile);
 
         app.get('/createtopic', sendTopic, createtopicGET);
 
@@ -91,7 +91,7 @@ export class myserver {
 
         app.post('/registeruser', validateRegister, registerPOST);
 
-        app.post('/loginuser', validateLogin, loginPOST);
+        app.post('/profile/:id', validateLogin, loginPOST);
 
         app.post('/receivetopics', sendTopic, createtopicPOST);
 
