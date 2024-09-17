@@ -175,6 +175,22 @@ footer p {
     margin-top: 20px;
 }
 
+.delete {
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+.delete:hover {
+    background-color: #c0392b;
+}
+
 .topic-form {
     background-color: #201f1f; 
     color: #f0f0f0;

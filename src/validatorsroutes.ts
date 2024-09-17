@@ -1,7 +1,5 @@
 import { body } from "express-validator";
 
-import validator from "validator";
-
 export const validateLogin = [
 
     body('username')

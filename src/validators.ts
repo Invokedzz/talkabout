@@ -1,10 +1,14 @@
-import express from "express";
+import express, { Request, Response } from "express";
 
 import helmet from "helmet";
 
 import session from "express-session";
 
 import csurf from "csurf";
+
+import morgan from "morgan";
+
+import compression from "compression";
 
 const app = express();
 
@@ -33,10 +37,23 @@ export function security (): void {
 
     }));
 
+    app.use(compression({
+
+        level: 9, 
+        threshold: 1024,
+        filter: (req: Request, res: Response) => {
+            return /text\/html/.test(res.getHeader('Content-Type') as string);
+        },
+        memLevel: 9, 
+        chunkSize: 16384, 
+
+    }));
 
     const csrf = csurf({ cookie: { httpOnly: true, secure: true } });
 
     app.use(csrf);
+
+    app.use(morgan('combined'));
 
 
 };
