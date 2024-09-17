@@ -191,7 +191,19 @@ export const createcommentsGET = (req: Request, res: Response): void => {
 
 export const createcommentsPOST = async (req: Request, res: Response): Promise <void> => {
 
-    res.render('successcomments');
+    const comment: string = req.body.comment;
+
+    try {
+
+        await createPool.query('INSERT INTO comments (comment) VALUES (?)', [comment]);
+        res.render('successcomments');
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
 
 };
 

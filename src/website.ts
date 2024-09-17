@@ -100,7 +100,7 @@ export class myserver {
 
         app.post('/home', validateLogin, loginPOST);
 
-        app.post('/sendcomment', sendcomment, createcommentsPOST);
+        app.post('/sendcomments', sendcomment, createcommentsPOST);
 
         app.post('/receivetopics', sendTopic, createtopicPOST);
 
