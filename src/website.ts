@@ -12,12 +12,15 @@ import {
         viewtopics,
         deletetopic,
         profile,
+        createcommentsGET,
+        createcommentsPOST,
+        viewcomments,
          error,
 
         } from "./routes";
 
 
-import { validateLogin, validateRegister, sendTopic } from "./validatorsroutes";
+import { validateLogin, validateRegister, sendTopic, sendcomment } from "./validatorsroutes";
 
 import { engine } from "express-handlebars";
 
@@ -83,6 +86,10 @@ export class myserver {
 
         app.get('/viewtopics', viewtopics);
 
+        app.get('/comment', sendcomment, createcommentsGET);
+
+        app.get('/seecomments', viewcomments);
+
         app.get('*', error);
 
     };
@@ -92,6 +99,8 @@ export class myserver {
         app.post('/registeruser', validateRegister, registerPOST);
 
         app.post('/home', validateLogin, loginPOST);
+
+        app.post('/sendcomment', sendcomment, createcommentsPOST);
 
         app.post('/receivetopics', sendTopic, createtopicPOST);
 

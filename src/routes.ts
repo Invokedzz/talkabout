@@ -183,9 +183,15 @@ export const deletetopic = async (req: Request, res: Response): Promise <void> =
 
 };
 
-export const createcomments = async (req: Request, res: Response): Promise <void> => {
+export const createcommentsGET = (req: Request, res: Response): void => {
 
+    res.render('comments');
 
+};
+
+export const createcommentsPOST = async (req: Request, res: Response): Promise <void> => {
+
+    res.render('successcomments');
 
 };
 

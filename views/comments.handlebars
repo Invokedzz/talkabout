@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/css/website.css">
+
+<section>
+        <div class="chatblock">    
+            <div class="box">
+                {{> partials}}
+                <h2>Add a New Topic</h2>
+                <form action="/sendcomments" method="POST" class="topic-form">
+                    <div class="form-group">
+                    
+                    
+                    <div class="form-group">
+                        <label for="commentary">Create commentary: </label>
+                        <textarea name="comment" rows="4" required></textarea>
+                    </div>
+                    
+                    <button type="submit">Send</button>
+                </form>
+
+            </div>
+    </section>
