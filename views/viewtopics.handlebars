@@ -1,0 +1,34 @@
+
+
+    <link rel="stylesheet" href="/css/website.css">
+
+<section>
+        <div class="chatblock">    
+            <div class="box">
+                {{> partials}}
+
+                {{#each topics}}
+
+                <h2>{{title}}</h2>
+
+                <p>{{theme}}</p>
+
+                <p>{{text}}</p>
+
+                <a href="/comment">Comment</a>
+
+                <a href="/seecomments">See comments</a>
+
+                <form action="/deletetopic/{{id}}" method="POST">
+                <button type="submit">Delete</button>
+                </form>
+
+                {{else}}
+
+                <h2>No topics found.</h2>
+
+                {{/each}}
+
+            </div>
+        </div>
+</section>

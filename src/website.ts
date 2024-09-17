@@ -10,6 +10,7 @@ import {
         createtopicGET,
         createtopicPOST,
         viewtopics,
+        deletetopic,
          error,
 
         } from "./routes";
@@ -89,6 +90,8 @@ export class myserver {
         app.post('/loginuser', validateLogin, loginPOST);
 
         app.post('/receivetopics', sendTopic, createtopicPOST);
+
+        app.post('/deletetopic/:id', sendTopic, deletetopic);
 
     };
 

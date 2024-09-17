@@ -126,9 +126,37 @@ export const createtopicPOST = async (req: Request, res: Response): Promise <voi
 
 };
 
-export const viewtopics = (req: Request, res: Response): void => {
+export const viewtopics = async (req: Request, res: Response): Promise <void> => {
 
-    res.render('viewtopics');
+    try {
+
+        const [topics] = await createPool.query('SELECT * FROM topics');
+        res.render('viewtopics', {topics});
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
+
+};
+
+export const deletetopic = async (req: Request, res: Response): Promise <void> => {
+
+    const id = req.params.id;
+
+    try {
+
+        await createPool.query('DELETE FROM topics WHERE id = ?', [id]);
+        res.redirect('/viewtopics');
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
 
 };
 

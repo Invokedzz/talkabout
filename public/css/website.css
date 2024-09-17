@@ -165,13 +165,14 @@ footer p {
     background: #2e2e2e;
     padding: 20px;
     margin: 20px;
-    margin-top: 40px;
+    margin-top: 50px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
 }
 
 .chatblock h2 {
     color: #fff;
+    margin-top: 20px;
 }
 
 .topic-form {
@@ -219,4 +220,14 @@ footer p {
 
 .topic-form .form-group {
     margin-bottom: 16px;
+}
+
+.chatblock p {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.chatblock a {
+    color: #fff;
+    margin-left: 5px;
 }
