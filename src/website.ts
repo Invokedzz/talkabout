@@ -88,6 +88,8 @@ export class myserver {
 
         app.post('/loginuser', validateLogin, loginPOST);
 
+        app.post('/receivetopics', sendTopic, createtopicPOST);
+
     };
 
     public listen (): void {

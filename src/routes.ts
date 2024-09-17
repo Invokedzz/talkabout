@@ -101,7 +101,28 @@ export const createtopicGET = (req: Request, res: Response): void => {
 
 export const createtopicPOST = async (req: Request, res: Response): Promise <void> => {
 
-    res.render('receivetopics');
+    const title: string = req.body.title;
+
+    const theme: string = req.body.theme;
+
+    const text: string = req.body.text;
+
+    validateemptytopic(title, theme, text);
+
+    validateTopic(title, theme, text);
+
+    try {
+
+        await createPool.query('INSERT INTO topics (title, theme, text) VALUES (?, ?, ?)', [title, theme, text]);
+
+        res.render('receivetopics', {title});
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
 
 };
 
