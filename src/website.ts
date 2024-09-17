@@ -11,19 +11,22 @@ import {
         createtopicPOST,
         viewtopics,
         deletetopic,
+        profile,
          error,
 
         } from "./routes";
 
+
+
 import { validateLogin, validateRegister, sendTopic } from "./validatorsroutes";
+
+import { ensureAuthenticated } from "../middlewares/authmiddleware";
 
 import path from "path";
 
 import { engine } from "express-handlebars";
 
 import rateLimit from "express-rate-limit";
-
-import csurf from "csurf";
 
 const app = express();
 
@@ -74,6 +77,8 @@ export class myserver {
         app.get('/register', validateRegister, registerGET);
 
         app.get('/home', home);
+
+        app.get('/profile', ensureAuthenticated, profile);
 
         app.get('/createtopic', sendTopic, createtopicGET);
 

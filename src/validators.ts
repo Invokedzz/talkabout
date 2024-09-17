@@ -4,6 +4,10 @@ import helmet from "helmet";
 
 import session from "express-session";
 
+import { Sequelize } from "sequelize";
+
+import connectSessionSequelize from 'connect-session-sequelize';
+
 import csurf from "csurf";
 
 import morgan from "morgan";
@@ -28,12 +32,28 @@ export function security (): void {
 
     }));
 
+    const sequelize = new Sequelize('database', 'username', 'password', {
+
+        host: 'localhost',
+        dialect: 'mysql',
+
+    });
+
+    const SequelizeStore = connectSessionSequelize(session.Store);
+
+    const sessionStore = new SequelizeStore({
+
+    db: sequelize,
+
+    });
+
     app.use(session({
 
         secret: 'ILOVELINKINPARKANDTHEIRNEWSINGERHAHAHA',
         resave: false,
         saveUninitialized: true,
         cookie: { secure: true, httpOnly: true },
+        store: sessionStore,
 
     }));
 

@@ -38,6 +38,8 @@ export const loginPOST = async (req: Request, res: Response): Promise <void> => 
 
         if (user && await bcrypt.compare(password, user.password)) {
         
+        req.session.userId = user.id;
+
         jwt.sign({ id: user.id }, 'secret', { expiresIn: '1h' });
         
         res.render('home', {username});
@@ -87,6 +89,35 @@ export const registerPOST = async (req: Request, res: Response): Promise <void> 
     };
 
 };
+
+export const profile = async (req: Request, res: Response): Promise <void> => {
+    
+    const userId = req.session.userId;
+
+    if (!userId) {
+
+        res.redirect('/login');
+        return;
+
+    };
+    
+    try {
+
+        const [rows]: any = await createPool.query('SELECT * FROM users WHERE id = ?', [userId]);
+
+        const user = rows[0];
+
+        res.render('profile', { user });
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        res.status(500).send("Something went wrong. Try again.");
+
+    };
+
+};
+
 
 export const home = (req: Request, res: Response): void => {
 
@@ -160,6 +191,18 @@ export const deletetopic = async (req: Request, res: Response): Promise <void> =
         throw new Error("Something went wrong. Try again.");
 
     };
+
+};
+
+export const createcomments = async (req: Request, res: Response): Promise <void> => {
+
+
+
+};
+
+export const viewcomments = async (req: Request, res: Response): Promise <void> => {
+
+
 
 };
 
