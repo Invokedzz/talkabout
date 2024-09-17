@@ -17,10 +17,7 @@ import {
         } from "./routes";
 
 
-
 import { validateLogin, validateRegister, sendTopic } from "./validatorsroutes";
-
-import { ensureAuthenticated } from "../middlewares/authmiddleware";
 
 import path from "path";
 
@@ -78,7 +75,7 @@ export class myserver {
 
         app.get('/home', home);
 
-        app.get('/profile', ensureAuthenticated, profile);
+        app.get('/profile', profile);
 
         app.get('/createtopic', sendTopic, createtopicGET);
 

@@ -37,8 +37,6 @@ export const loginPOST = async (req: Request, res: Response): Promise <void> => 
         const user = rows[0];
 
         if (user && await bcrypt.compare(password, user.password)) {
-        
-        req.session.userId = user.id;
 
         jwt.sign({ id: user.id }, 'secret', { expiresIn: '1h' });
         
@@ -92,18 +90,11 @@ export const registerPOST = async (req: Request, res: Response): Promise <void> 
 
 export const profile = async (req: Request, res: Response): Promise <void> => {
     
-    const userId = req.session.userId;
+    const id = req.params.id;
 
-    if (!userId) {
-
-        res.redirect('/login');
-        return;
-
-    };
-    
     try {
 
-        const [rows]: any = await createPool.query('SELECT * FROM users WHERE id = ?', [userId]);
+        const [rows]: any = await createPool.query('SELECT * FROM users WHERE id = ?', [id]);
 
         const user = rows[0];
 
