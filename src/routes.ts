@@ -10,8 +10,9 @@ import {
      validationLogin,
      validateTopic,
      validateemptytopic,
+     verifyid,
 
-    } from "./validatorsroutes";
+    } from "./validatorsdatabase";
 
 import { createPool } from "./database";
 
@@ -144,7 +145,9 @@ export const viewtopics = async (req: Request, res: Response): Promise <void> =>
 
 export const deletetopic = async (req: Request, res: Response): Promise <void> => {
 
-    const id = req.params.id;
+    const id = req.params.id; // mano PQ isso eh uma string????!!!!
+
+    verifyid(id);
 
     try {
 

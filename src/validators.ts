@@ -4,6 +4,8 @@ import helmet from "helmet";
 
 import session from "express-session";
 
+import csurf from "csurf";
+
 const app = express();
 
 export function security (): void {
@@ -30,5 +32,11 @@ export function security (): void {
         cookie: { secure: true, httpOnly: true },
 
     }));
+
+
+    const csrf = csurf({ cookie: { httpOnly: true, secure: true } });
+
+    app.use(csrf);
+
 
 };
