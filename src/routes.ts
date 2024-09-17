@@ -40,7 +40,7 @@ export const loginPOST = async (req: Request, res: Response): Promise <void> => 
 
         jwt.sign({ id: user.id }, 'secret', { expiresIn: '1h' });
         
-        res.render('profile', {username, password});
+        res.render('home', {username, password});
 
         };
 

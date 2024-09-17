@@ -19,11 +19,11 @@ import {
 
 import { validateLogin, validateRegister, sendTopic } from "./validatorsroutes";
 
-import path from "path";
-
 import { engine } from "express-handlebars";
 
 import rateLimit from "express-rate-limit";
+
+import path from "path";
 
 const app = express();
 
@@ -91,7 +91,7 @@ export class myserver {
 
         app.post('/registeruser', validateRegister, registerPOST);
 
-        app.post('/profile/:id', validateLogin, loginPOST);
+        app.post('/home', validateLogin, loginPOST);
 
         app.post('/receivetopics', sendTopic, createtopicPOST);
 
