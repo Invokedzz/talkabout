@@ -1,0 +1,22 @@
+
+
+<link rel="stylesheet" href="/css/website.css">
+
+<section>
+    <div class="chatblock">    
+        <div class="box">
+            {{> partials}}
+
+            {{#each comments}}
+            
+                <div class="comment">
+                    <p>{{comment}}</p>
+                </div>
+
+            {{else}}
+                <h2>No comments found.</h2>
+            {{/each}}
+
+        </div>
+    </div>
+</section>

@@ -195,7 +195,7 @@ export const createcommentsPOST = async (req: Request, res: Response): Promise <
 
     try {
 
-        await createPool.query('INSERT INTO comments (comment) VALUES (?)', [comment]);
+        await createPool.query('INSERT INTO commentary (comment) VALUES (?)', [comment]);
         res.render('successcomments');
 
     } catch (e) {
@@ -209,7 +209,26 @@ export const createcommentsPOST = async (req: Request, res: Response): Promise <
 
 export const viewcomments = async (req: Request, res: Response): Promise <void> => {
 
+    const id: string = req.params.id;
 
+    try {
+
+        const query = `
+        SELECT c.comment, t.title 
+        FROM commentary c 
+        JOIN topics t ON c.topic_id = t.id 
+        WHERE t.id = ?`;
+    
+        const [comments] = await createPool.query(query, [id]);
+
+        res.render('viewcomments', {comments});
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
 
 };
 
