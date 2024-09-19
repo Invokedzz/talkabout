@@ -185,23 +185,25 @@ export const deletetopic = async (req: Request, res: Response): Promise <void> =
 
 export const createcommentsGET = (req: Request, res: Response): void => {
 
-    const id = req.params.id;
+    const topicid = req.params.topicid;
 
-    res.render('comments', { id });
+    res.render('comments', { topicid });
 
 };
 
 export const createcommentsPOST = async (req: Request, res: Response): Promise<void> => {
 
-    const id = req.params.id;
     const comment: string = req.body.comment;
-    const topicid: number = req.body.topicid;
+
+    const topicidparams = req.params.topicid;
+
+    const topicid: number = parseInt(topicidparams);
 
     try {
 
         await createPool.query('INSERT INTO comment (comments, topic_id) VALUES (?, ?)', [comment, topicid]);
 
-        res.render('successcomments', {id});
+        res.render('successcomments', {comment, topicid});
 
     } catch (e) {
 
@@ -214,8 +216,6 @@ export const createcommentsPOST = async (req: Request, res: Response): Promise<v
 
 export const viewcomments = async (req: Request, res: Response): Promise <void> => {
 
-    const id = req.params.id;
-
     const topicidparams = req.params.topicid;
 
     const topicid: number = parseInt(topicidparams);
@@ -224,7 +224,7 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
 
        const [rows] = await createPool.query('SELECT * FROM comment JOIN topics ON comment.topic_id = topics.id WHERE topics.id = ?', [topicid]);
 
-        res.render('viewcomments', {rows, id});
+        res.render('viewcomments', {rows});
 
     } catch (e) {
 
@@ -237,8 +237,11 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
 
 export const deletecomment = async (req: Request, res: Response): Promise <void> => {;
 
+    const commentid = req.params.id;
+
     try {
 
+        await createPool.query('DELETE FROM comment WHERE id = ?', [commentid]);
         
         res.redirect('/viewtopics');
 

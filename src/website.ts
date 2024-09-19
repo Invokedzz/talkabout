@@ -89,7 +89,7 @@ export class myserver {
 
         app.get('/viewtopics', viewtopics);
 
-        app.get('/comment/:id', sendcomment, createcommentsGET);
+        app.get('/comment/:topicid', sendcomment, createcommentsGET);
 
         app.get('/seecomments/:topicid', viewcomments);
 
@@ -105,13 +105,13 @@ export class myserver {
 
         app.post('/home', validateLogin, loginPOST);
 
-        app.post('/sendcomments/:id', sendcomment, createcommentsPOST);
+        app.post('/sendcomments/:topicid', sendcomment, createcommentsPOST);
 
         app.post('/receivetopics', sendTopic, createtopicPOST);
 
         app.post('/deletetopic/:id', sendTopic, deletetopic);
 
-        app.post('/deletecomment/:id', deletecomment);
+        app.post('/deletecomment/:commentid', deletecomment);
 
         app.post('/editedcomments/:id', editcommentPOST);
 
