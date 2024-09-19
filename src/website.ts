@@ -113,7 +113,7 @@ export class myserver {
 
         app.post('/deletecomment/:topicid', deletecomment);
 
-        app.post('/editedcomments/:topicid', editcommentPOST);
+        app.post('/editedcomments/:commentid', editcommentPOST);
 
     };
 

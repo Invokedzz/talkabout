@@ -5,7 +5,7 @@
             <div class="box">
                 {{> partials}}
                 <h2>Add a New Topic</h2>
-                <form action="/editedcomments/{{topicid}}" method="POST" class="topic-form">
+                <form action="/editedcomments/{{commentid}}" method="POST" class="topic-form">
                     <div class="form-group">
                     
                     {{#each rows}}
@@ -15,7 +15,7 @@
                         <textarea name="comment" rows="4" required>{{comments}}</textarea>
                     </div>
                     
-                    <input type="hidden" name="topicid" value="{{id}}">
+                    <input type="hidden" name="commentid" value="{{ commentid }}">
 
                     <button type="submit">Send</button>
 

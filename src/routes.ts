@@ -237,64 +237,18 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
 
 export const deletecomment = async (req: Request, res: Response): Promise <void> => {
 
-    const id = req.params.id;
 
-    try {
-
-        await createPool.query('DELETE FROM comment WHERE id = ?', [id]);
-        res.redirect('/viewtopics');
-
-    } catch (e) {
-
-        console.error("Something happened: ", e);
-        throw new Error("Something went wrong. Try again.");
-
-    };
 
 };
 
 export const editcommentGET = async (req: Request, res: Response): Promise <void> => {
 
-    const comment: string = req.body.comment;
-    
-    const topicidparams = req.params.topicid;
-    
-    const topicid: number = parseInt(topicidparams);
 
-    try {
-
-        const [rows] = await createPool.query('SELECT * FROM comment WHERE topic_id = ?', [topicid]);
-
-        res.render('editcomment', {rows, topicid});
-
-    } catch (e) {
-
-        console.error("Something happened: ", e);
-        throw new Error("Something went wrong. Try again.");
-
-    };
 
 };
 
 export const editcommentPOST = async (req: Request, res: Response): Promise <void> => {
   
-    const comment: string = req.body.comment;
-    
-    const topicidparams = req.params.topicid;
-    
-    const topicid: number = parseInt(topicidparams);
-    
-    try {
-
-        await createPool.query('UPDATE comment SET comments = ? WHERE topic_id = ?', [comment, topicid]);
-        res.render('editsuccess', {topicid});
-
-    } catch (e) {
-
-        console.error("Something happened: ", e);
-        throw new Error("Something went wrong. Try again.");
-
-    };
 
 };
 
