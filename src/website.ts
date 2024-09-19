@@ -93,7 +93,7 @@ export class myserver {
 
         app.get('/seecomments/:topicid', viewcomments);
 
-        app.get('/editcomment/:topicid', editcommentGET);
+        app.get('/editcomment/:id', editcommentGET);
 
         app.get('*', error);
 
@@ -111,9 +111,9 @@ export class myserver {
 
         app.post('/deletetopic/:id', sendTopic, deletetopic);
 
-        app.post('/deletecomment/:topicid', deletecomment);
+        app.post('/deletecomment/:id', deletecomment);
 
-        app.post('/editedcomments/:commentid', editcommentPOST);
+        app.post('/editedcomments/:id', editcommentPOST);
 
     };
 

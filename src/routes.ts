@@ -235,9 +235,19 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
 
 };
 
-export const deletecomment = async (req: Request, res: Response): Promise <void> => {
+export const deletecomment = async (req: Request, res: Response): Promise <void> => {;
 
+    try {
 
+        
+        res.redirect('/viewtopics');
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
 
 };
 
