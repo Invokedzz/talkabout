@@ -185,7 +185,9 @@ export const deletetopic = async (req: Request, res: Response): Promise <void> =
 
 export const createcommentsGET = (req: Request, res: Response): void => {
 
-    res.render('comments');
+    const id = req.params.id;
+
+    res.render('comments', { id });
 
 };
 
@@ -212,7 +214,9 @@ export const createcommentsPOST = async (req: Request, res: Response): Promise<v
 
 export const viewcomments = async (req: Request, res: Response): Promise <void> => {
 
-    const topicid: number = parseInt(req.params.topicid);
+    const topicidparams = req.params.topicid;
+
+    const topicid: number = parseInt(topicidparams);
     
     try {
 

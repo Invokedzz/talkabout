@@ -88,7 +88,7 @@ export class myserver {
 
         app.get('/comment/:id', sendcomment, createcommentsGET);
 
-        app.get('/seecomments/:id', viewcomments);
+        app.get('/seecomments/:topicid', viewcomments);
 
         app.get('*', error);
 
