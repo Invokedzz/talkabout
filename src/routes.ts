@@ -191,13 +191,15 @@ export const createcommentsGET = (req: Request, res: Response): void => {
 
 export const createcommentsPOST = async (req: Request, res: Response): Promise<void> => {
 
+    const id = req.params.id;
     const comment: string = req.body.comment;
+    const topicid: number = req.body.topicid;
 
     try {
 
-        await createPool.query('INSERT INTO comment (comments) VALUES (?)', [comment]);
+        await createPool.query('INSERT INTO comment (comments, topic_id) VALUES (?, ?)', [comment, topicid]);
 
-        res.render('successcomments');
+        res.render('successcomments', {id});
 
     } catch (e) {
 
@@ -210,9 +212,12 @@ export const createcommentsPOST = async (req: Request, res: Response): Promise<v
 
 export const viewcomments = async (req: Request, res: Response): Promise <void> => {
 
+    const topicid: number = parseInt(req.params.topicid);
+    
     try {
 
-        const [rows]: any = await createPool.query('SELECT * FROM comment JOIN topics WHERE comment.id = topics.id');
+       const [rows] = await createPool.query('SELECT * FROM comment JOIN topics ON comment.topic_id = topics.id WHERE topics.id = ?', [topicid]);
+
         res.render('viewcomments', {rows});
 
     } catch (e) {
