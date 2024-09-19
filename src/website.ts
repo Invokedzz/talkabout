@@ -91,6 +91,8 @@ export class myserver {
 
         app.get('/seecomments/:topicid', viewcomments);
 
+        app.get('/editcomment/:topicid', )
+
         app.get('*', error);
 
     };

@@ -253,6 +253,18 @@ export const deletecomment = async (req: Request, res: Response): Promise <void>
 
 };
 
+export const editcommentGET = async (req: Request, res: Response): Promise <void> => {
+
+
+
+};
+
+export const editcommentPOST = async (req: Request, res: Response): Promise <void> => {
+  
+
+
+};
+
 export const error = (req: Request, res: Response, next: NextFunction): void => {
 
     res.sendStatus(404);

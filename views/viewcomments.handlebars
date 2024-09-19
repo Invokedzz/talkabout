@@ -11,11 +11,15 @@
 
               <div class="comment">
                     <p>{{comments}}</p>
+
+                    <a href="/editcomment/{{id}}">Edit</a>
+
                     <form action="/deletecomment/{{id}}" method="POST">
 
                         <button type="submit" class="delete">Delete</button>
 
                     </form>
+
                 </div>
 
                 {{/each}}
