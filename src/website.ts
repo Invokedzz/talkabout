@@ -91,7 +91,7 @@ export class myserver {
 
         app.get('/comment/:topicid', sendcomment, createcommentsGET);
 
-        app.get('/seecomments/:topicid', viewcomments);
+        app.get('/seecomments/:commentid', viewcomments);
 
         app.get('/editcomment/:id', editcommentGET);
 

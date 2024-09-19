@@ -15,6 +15,7 @@ import {
     } from "./validatorsdatabase";
 
 import { createPool } from "./database";
+import { create } from "express-handlebars";
 
 export const loginGET = (req: Request, res: Response): void => {
 
@@ -191,7 +192,7 @@ export const createcommentsGET = (req: Request, res: Response): void => {
 
 };
 
-export const createcommentsPOST = async (req: Request, res: Response): Promise<void> => {
+export const createcommentsPOST = async (req: Request, res: Response): Promise <void> => {
 
     const comment: string = req.body.comment;
 
@@ -218,6 +219,8 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
 
     const topicidparams = req.params.topicid;
 
+    const commentidparams = req.body.commentid;
+
     const topicid: number = parseInt(topicidparams);
     
     try {
@@ -237,20 +240,7 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
 
 export const deletecomment = async (req: Request, res: Response): Promise <void> => {;
 
-    const commentid = req.params.id;
 
-    try {
-
-        await createPool.query('DELETE FROM comment WHERE id = ?', [commentid]);
-        
-        res.redirect('/viewtopics');
-
-    } catch (e) {
-
-        console.error("Something happened: ", e);
-        throw new Error("Something went wrong. Try again.");
-
-    };
 
 };
 
