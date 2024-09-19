@@ -12,7 +12,11 @@
               <div class="comment">
                     <p>{{comments}}</p>
 
-                    <a href="/editcomment/{{id}}">Edit</a>
+                    <form action="/editcomment/{{id}}" method="GET">
+                    
+                    <button type="submit">Edit</button>
+
+                    </form>
 
                     <form action="/deletecomment/{{id}}" method="POST">
 
