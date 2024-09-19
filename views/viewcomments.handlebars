@@ -11,6 +11,11 @@
 
               <div class="comment">
                     <p>{{comments}}</p>
+                    <form action="/deletecomment/{{id}}" method="POST">
+
+                        <button type="submit" class="delete">Delete</button>
+
+                    </form>
                 </div>
 
                 {{/each}}

@@ -15,6 +15,7 @@ import {
         createcommentsGET,
         createcommentsPOST,
         viewcomments,
+        deletecomment,
          error,
 
         } from "./routes";
@@ -105,6 +106,8 @@ export class myserver {
         app.post('/receivetopics', sendTopic, createtopicPOST);
 
         app.post('/deletetopic/:id', sendTopic, deletetopic);
+
+        app.post('/deletecomment/:topicid', deletecomment);
 
     };
 

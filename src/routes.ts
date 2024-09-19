@@ -233,6 +233,26 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
 
 };
 
+export const deletecomment = async (req: Request, res: Response): Promise <void> => {
+
+    const topicidparams = req.params.topicid;
+    
+    const topicid: number = parseInt(topicidparams);
+
+    try {
+
+        await createPool.query('DELETE FROM comment WHERE topic_id = ?', [topicid]);
+        res.redirect('/viewtopics');
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
+
+};
+
 export const error = (req: Request, res: Response, next: NextFunction): void => {
 
     res.sendStatus(404);
