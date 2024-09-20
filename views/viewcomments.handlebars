@@ -12,13 +12,14 @@
               <div class="comment">
                     <p>{{comments}}</p>
 
-                    <form action="/editcomment/{{}}" method="GET">
+                    <form action="/editcomment/{{id}}" method="GET">
                     
                     <button type="submit">Edit</button>
 
                     </form>
 
-                    <form action="/deletecomment/{{}}" method="GET">
+                    <form action="/deletecomment/{{id}}" method="GET">
+                    <input type="hidden" value="{{commentid}}">
                     <button type="submit" class="delete">Delete</button>
                     </form>
 

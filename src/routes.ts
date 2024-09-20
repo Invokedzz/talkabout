@@ -225,7 +225,7 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
     
     try {
 
-       const [rows] = await createPool.query('SELECT * FROM comment JOIN topics ON comment.topic_id = topics.id WHERE topics.id = ?', [topicid]);
+       const [rows]: any = await createPool.query('SELECT * FROM comment JOIN topics ON comment.topic_id = topics.id WHERE topics.id = ?', [topicid]);
 
         res.render('viewcomments', { rows });
 
@@ -246,7 +246,7 @@ export const deletecomment = async (req: Request, res: Response): Promise <void>
 
     try {
 
-        const [comment] = await createPool.query('SELECT * FROM comment WHERE id = ?', [commentid]);
+        const [comment] = await createPool.query('SELECT id FROM comment WHERE id = ?', [commentid]);
 
         res.render('delete', { comment });
 
