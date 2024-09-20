@@ -114,7 +114,7 @@ export class myserver {
 
         app.post('/deletetopic/:id', sendTopic, deletetopic);
 
-        app.post('/deleteconfirmcomment/:comment', deletecomment);
+        app.post('/deleteconfirmcomment/:commentaryid', deletecomment);
 
         app.post('/editedcomments/:comment', editcommentPOST);
 

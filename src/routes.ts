@@ -15,19 +15,18 @@ import {
     } from "./validatorsdatabase";
 
 import { createPool } from "./database";
-import { create } from "express-handlebars";
 
-export const loginGET = (req: Request, res: Response): void => {
+export const loginGET = (request: Request, response: Response): void => {
 
-    res.render('login')
+    response.render('login')
 
 };
 
-export const loginPOST = async (req: Request, res: Response): Promise <void> => {
+export const loginPOST = async (request: Request, response: Response): Promise <void> => {
 
-    const username: string = req.body.username;
+    const username: string = request.body.username;
 
-    const password: string = req.body.password;
+    const password: string = request.body.password;
 
     validationLogin(username, password);
 
@@ -41,11 +40,11 @@ export const loginPOST = async (req: Request, res: Response): Promise <void> => 
 
         jwt.sign({ id: user.id }, 'secret', { expiresIn: '1h' });
         
-        res.render('home', {username, password});
+        response.render('home', { username, password });
 
         };
 
-        res.render('error');
+        response.render('error');
 
     } catch (e) {
 
@@ -56,19 +55,19 @@ export const loginPOST = async (req: Request, res: Response): Promise <void> => 
 
 };
 
-export const registerGET = (req: Request, res: Response): void => {
+export const registerGET = (request: Request, response: Response): void => {
 
-    res.render('register');
+    response.render('register');
 
 };
 
-export const registerPOST = async (req: Request, res: Response): Promise <void> => {
+export const registerPOST = async (request: Request, response: Response): Promise <void> => {
 
-    const username: string = req.body.username;
+    const username: string = request.body.username;
 
-    const email: string = req.body.email;
+    const email: string = request.body.email;
 
-    const password: string = req.body.password;
+    const password: string = request.body.password;
 
     validationRegister(username, email, password);
 
@@ -78,7 +77,7 @@ export const registerPOST = async (req: Request, res: Response): Promise <void> 
 
         await createPool.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, passwordHash]);
 
-       res.render('receiveuser', {username});
+       response.render('receiveuser', { username });
 
     } catch (e) {
 
@@ -89,7 +88,7 @@ export const registerPOST = async (req: Request, res: Response): Promise <void> 
 
 };
 
-export const profile = async (req: Request, res: Response): Promise <void> => {
+export const profile = async (request: Request, response: Response): Promise <void> => {
 
     try {
 
@@ -97,37 +96,37 @@ export const profile = async (req: Request, res: Response): Promise <void> => {
 
         const user = rows[0];
 
-        res.render('profile', { user });
+        response.render('profile', { user });
 
     } catch (e) {
 
         console.error("Something happened: ", e);
-        res.status(500).send("Something went wrong. Try again.");
+        response.status(500).send("Something went wrong. Try again.");
 
     };
 
 };
 
 
-export const home = (req: Request, res: Response): void => {
+export const home = (request: Request, response: Response): void => {
 
-    res.render('home');
-
-};
-
-export const createtopicGET = (req: Request, res: Response): void => {
-
-    res.render('createtopic');
+    response.render('home');
 
 };
 
-export const createtopicPOST = async (req: Request, res: Response): Promise <void> => {
+export const createtopicGET = (request: Request, response: Response): void => {
 
-    const title: string = req.body.title;
+    response.render('createtopic');
 
-    const theme: string = req.body.theme;
+};
 
-    const text: string = req.body.text;
+export const createtopicPOST = async (request: Request, response: Response): Promise <void> => {
+
+    const title: string = request.body.title;
+
+    const theme: string = request.body.theme;
+
+    const text: string = request.body.text;
 
     validateemptytopic(title, theme, text);
 
@@ -137,7 +136,7 @@ export const createtopicPOST = async (req: Request, res: Response): Promise <voi
 
         await createPool.query('INSERT INTO topics (title, theme, text) VALUES (?, ?, ?)', [title, theme, text]);
 
-        res.render('receivetopics', {title});
+        response.render('receivetopics', { title });
 
     } catch (e) {
 
@@ -148,12 +147,13 @@ export const createtopicPOST = async (req: Request, res: Response): Promise <voi
 
 };
 
-export const viewtopics = async (req: Request, res: Response): Promise <void> => {
+export const viewtopics = async (request: Request, response: Response): Promise <void> => {
 
     try {
 
         const [topics] = await createPool.query('SELECT * FROM topics');
-        res.render('viewtopics', {topics});
+
+        response.render('viewtopics', { topics });
 
     } catch (e) {
 
@@ -164,16 +164,17 @@ export const viewtopics = async (req: Request, res: Response): Promise <void> =>
 
 };
 
-export const deletetopic = async (req: Request, res: Response): Promise <void> => {
+export const deletetopic = async (request: Request, response: Response): Promise <void> => {
 
-    const id = req.params.id; // mano PQ isso eh uma string????!!!!
+    const id = request.params.id; // mano PQ isso eh uma string????!!!!
 
     verifyid(id);
 
     try {
 
         await createPool.query('DELETE FROM topics WHERE id = ?', [id]);
-        res.redirect('/viewtopics');
+
+        response.redirect('/viewtopics');
 
     } catch (e) {
 
@@ -184,11 +185,11 @@ export const deletetopic = async (req: Request, res: Response): Promise <void> =
 
 };
 
-export const createcommentsGET = (req: Request, res: Response): void => {
+export const createcommentsGET = (request: Request, response: Response): void => {
 
-    const topicid = req.params.topicid;
+    const topicid = request.params.topicid;
 
-    res.render('comments', { topicid });
+    response.render('comments', { topicid });
 
 };
 
@@ -215,9 +216,9 @@ export const createcommentsPOST = async (request: Request, response: Response): 
 
 };
 
-export const viewcomments = async (req: Request, res: Response): Promise <void> => {
+export const viewcomments = async (request: Request, response: Response): Promise <void> => {
 
-    const topicidparams = req.params.topicid;
+    const topicidparams = request.params.topicid;
 
     const topicid: number = parseInt(topicidparams);
     
@@ -225,7 +226,7 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
 
        const [rows]: any = await createPool.query('SELECT * FROM comment JOIN topics ON comment.topic_id = topics.id WHERE topics.id = ?', [topicid]);
 
-        res.render('viewcomments', { rows });
+        response.render('viewcomments', { rows });
 
     } catch (e) {
 
@@ -239,7 +240,9 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
 export const deletecomment = async (req: Request, res: Response): Promise <void> => {;
 
 
+
     try {
+
 
 
 
@@ -254,7 +257,13 @@ export const deletecomment = async (req: Request, res: Response): Promise <void>
 
 export const deletecommentPOST = async (req: Request, res: Response): Promise <void> => {
 
+    const commentid = req.body.commentaryid;
+    
     try {
+
+        await createPool.query('DELETE FROM comment WHERE id = ?', [commentid]);
+
+        res.redirect('/viewcomments');
 
     } catch (e) {
 
@@ -276,9 +285,9 @@ export const editcommentPOST = async (req: Request, res: Response): Promise <voi
 
 };
 
-export const error = (req: Request, res: Response, next: NextFunction): void => {
+export const error = (request: Request, response: Response, next: NextFunction): void => {
 
-    res.sendStatus(404);
+    response.sendStatus(404);
     
     next();
 

@@ -3,9 +3,11 @@
     <div class="confirmation-container">
         <h2>Are you sure you want to delete?</h2>
         <p>You cannot access your message after you delete it.</p>
-        <input type="hidden" value="{{commentaryid}}">
+        <input type="hidden" name="commentaryid" value="{{rows}}">
         <div class="confirmation-link">
-           <form action="/deletecommentary/{{commentaryid}}">
+           <form action="/deleteconfirmcomment/{{commentaryid}}">
+
+            <input type="hidden" name="id" value="{{rows.id}}">
 
             <button type="submit" class="delete">Delete message</button>
 
