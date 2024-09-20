@@ -219,15 +219,13 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
 
     const topicidparams = req.params.topicid;
 
-    const commentidparams = req.body.commentid;
-
     const topicid: number = parseInt(topicidparams);
     
     try {
 
        const [rows] = await createPool.query('SELECT * FROM comment JOIN topics ON comment.topic_id = topics.id WHERE topics.id = ?', [topicid]);
 
-        res.render('viewcomments', {rows});
+        res.render('viewcomments', { rows });
 
     } catch (e) {
 
