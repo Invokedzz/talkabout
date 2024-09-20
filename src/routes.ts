@@ -192,19 +192,21 @@ export const createcommentsGET = (req: Request, res: Response): void => {
 
 };
 
-export const createcommentsPOST = async (req: Request, res: Response): Promise <void> => {
+export const createcommentsPOST = async (request: Request, response: Response): Promise <void> => {
 
-    const comment: string = req.body.comment;
+    const topicidparams = request.params.topicid;
 
-    const topicidparams = req.params.topicid;
+    const comment: string = request.body.comment;
 
     const topicid: number = parseInt(topicidparams);
 
     try {
 
+        await createPool.query('SELECT * FROM comment WHERE id = ?', [comment]);
+
         await createPool.query('INSERT INTO comment (comments, topic_id) VALUES (?, ?)', [comment, topicid]);
 
-        res.render('successcomments', {comment, topicid});
+        response.render('successcomments', { comment, topicid });
 
     } catch (e) {
 
@@ -238,9 +240,37 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
 
 export const deletecomment = async (req: Request, res: Response): Promise <void> => {;
 
+    const commentparams = req.params.comment;
 
+    const commentid: number = parseInt(commentparams);
+
+    try {
+
+        const [comment] = await createPool.query('SELECT * FROM comment WHERE id = ?', [commentid]);
+
+        res.render('delete', { comment });
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
 
 };
+
+export const deletecommentPOST = async (req: Request, res: Response): Promise <void> => {
+
+    try {
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
+
+};  
 
 export const editcommentGET = async (req: Request, res: Response): Promise <void> => {
 

@@ -4,6 +4,11 @@
         <h2>Your commentary was created!</h2>
         <p>Your commentary was sent successfully.</p>
         <div class="confirmation-link">
+           <form action="/viewcomments/{{topicid}}">
+           
             <p><a href="/seecomments/{{topicid}}">View Comments</a></p>
+            <input type="hidden" name="topicid" value="{{comment}}">
+           
+           </form>
         </div>
     </div>

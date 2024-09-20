@@ -18,6 +18,7 @@ import {
         deletecomment,
         editcommentGET, 
         editcommentPOST,
+        deletecommentPOST,
          error,
 
         } from "./routes";
@@ -95,6 +96,8 @@ export class myserver {
 
         app.get('/editcomment/:id', editcommentGET);
 
+        app.get('/deletecomment/:comment', deletecomment);
+
         app.get('*', error);
 
     };
@@ -111,7 +114,7 @@ export class myserver {
 
         app.post('/deletetopic/:id', sendTopic, deletetopic);
 
-        app.post('/deletecomment/:comment', deletecomment);
+        app.post('/deleteconfirmcomment/:comment', deletecomment);
 
         app.post('/editedcomments/:comment', editcommentPOST);
 
