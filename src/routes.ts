@@ -202,8 +202,6 @@ export const createcommentsPOST = async (request: Request, response: Response): 
 
     try {
 
-        await createPool.query('SELECT * FROM comment WHERE id = ?', [comment]);
-
         await createPool.query('INSERT INTO comment (comments, topic_id) VALUES (?, ?)', [comment, topicid]);
 
         response.render('successcomments', { comment, topicid });
@@ -240,15 +238,10 @@ export const viewcomments = async (req: Request, res: Response): Promise <void> 
 
 export const deletecomment = async (req: Request, res: Response): Promise <void> => {;
 
-    const commentparams = req.params.comment;
-
-    const commentid: number = parseInt(commentparams);
 
     try {
 
-        const [comment] = await createPool.query('SELECT id FROM comment WHERE id = ?', [commentid]);
 
-        res.render('delete', { comment });
 
     } catch (e) {
 

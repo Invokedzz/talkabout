@@ -96,7 +96,7 @@ export class myserver {
 
         app.get('/editcomment/:id', editcommentGET);
 
-        app.get('/deletecomment/:comment', deletecomment);
+        app.get('/deletecomment/:id', deletecomment);
 
         app.get('*', error);
 
