@@ -1,16 +1,23 @@
 <link rel="stylesheet" href="/css/styles.css">
 
+
     <div class="confirmation-container">
         <h2>Are you sure you want to delete?</h2>
         <p>You cannot access your message after you delete it.</p>
-        <input type="hidden" name="commentaryid" value="{{rows}}">
-        <div class="confirmation-link">
-           <form action="/deleteconfirmcomment/{{commentaryid}}">
 
-            <input type="hidden" name="id" value="{{rows.id}}">
+        <div class="confirmation-link">
+
+            {{#each gatherid}}
+
+           <form action="/deleteconfirmcomment/{{id}}" method="POST">
+
+            <input type="hidden" name="id" value="{{id}}">
 
             <button type="submit" class="delete">Delete message</button>
 
            </form>
+
+            {{/each}}
+
         </div>
     </div>

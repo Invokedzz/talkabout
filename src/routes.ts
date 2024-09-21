@@ -237,14 +237,13 @@ export const viewcomments = async (request: Request, response: Response): Promis
 
 };
 
-export const deletecomment = async (req: Request, res: Response): Promise <void> => {;
-
-
+export const deletecomment = async (request: Request, response: Response): Promise <void> => {;
 
     try {
 
+       const [gatherid] = await createPool.query('SELECT * FROM comment');
 
-
+       response.render('delete', { gatherid });
 
     } catch (e) {
 
@@ -255,15 +254,15 @@ export const deletecomment = async (req: Request, res: Response): Promise <void>
 
 };
 
-export const deletecommentPOST = async (req: Request, res: Response): Promise <void> => {
+export const deletecommentPOST = async (request: Request, response: Response): Promise <void> => {
 
-    const commentid = req.body.commentaryid;
+    const commentid = request.body.id;
     
     try {
 
         await createPool.query('DELETE FROM comment WHERE id = ?', [commentid]);
 
-        res.redirect('/viewcomments');
+        response.redirect('/home');
 
     } catch (e) {
 
@@ -273,17 +272,6 @@ export const deletecommentPOST = async (req: Request, res: Response): Promise <v
     };
 
 };  
-
-export const editcommentGET = async (req: Request, res: Response): Promise <void> => {
-
-
-
-};
-
-export const editcommentPOST = async (req: Request, res: Response): Promise <void> => {
-  
-
-};
 
 export const error = (request: Request, response: Response, next: NextFunction): void => {
 

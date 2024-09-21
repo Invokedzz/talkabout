@@ -16,8 +16,6 @@ import {
         createcommentsPOST,
         viewcomments,
         deletecomment,
-        editcommentGET, 
-        editcommentPOST,
         deletecommentPOST,
          error,
 
@@ -94,8 +92,6 @@ export class myserver {
 
         app.get('/seecomments/:topicid', viewcomments);
 
-        app.get('/editcomment/:id', editcommentGET);
-
         app.get('/deletecomment/:id', deletecomment);
 
         app.get('*', error);
@@ -114,9 +110,7 @@ export class myserver {
 
         app.post('/deletetopic/:id', sendTopic, deletetopic);
 
-        app.post('/deleteconfirmcomment/:commentaryid', deletecomment);
-
-        app.post('/editedcomments/:comment', editcommentPOST);
+        app.post('/deleteconfirmcomment/:id', deletecommentPOST);
 
     };
 
