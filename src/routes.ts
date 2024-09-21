@@ -10,11 +10,12 @@ import {
      validationLogin,
      validateTopic,
      validateemptytopic,
-     verifyid,
+     validateFloatID,
 
     } from "./validatorsdatabase";
 
 import { createPool } from "./database";
+import { QueryResult } from "mysql2";
 
 export const loginGET = (request: Request, response: Response): void => {
 
@@ -94,7 +95,7 @@ export const profile = async (request: Request, response: Response): Promise <vo
 
         const [rows]: any = await createPool.query('SELECT * FROM users');
 
-        const user = rows[0];
+        const user: any = rows[0];
 
         response.render('profile', { user });
 
@@ -168,7 +169,7 @@ export const deletetopic = async (request: Request, response: Response): Promise
 
     const id = request.params.id; // mano PQ isso eh uma string????!!!!
 
-    verifyid(id);
+  //  verifyid(id);
 
     try {
 
@@ -203,6 +204,8 @@ export const createcommentsPOST = async (request: Request, response: Response): 
 
     try {
 
+        validateFloatID(topicid);
+
         await createPool.query('INSERT INTO comment (comments, topic_id) VALUES (?, ?)', [comment, topicid]);
 
         response.render('successcomments', { comment, topicid });
@@ -223,6 +226,8 @@ export const viewcomments = async (request: Request, response: Response): Promis
     const topicid: number = parseInt(topicidparams);
     
     try {
+
+        validateFloatID(topicid);
 
        const [rows]: any = await createPool.query('SELECT * FROM comment JOIN topics ON comment.topic_id = topics.id WHERE topics.id = ?', [topicid]);
 

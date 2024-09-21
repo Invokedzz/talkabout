@@ -12,12 +12,6 @@
               <div class="comment">
                     <p>{{comments}}</p>
 
-                    <form action="/editcomment/{{id}}" method="GET">
-                    
-                    <button type="submit">Edit</button>
-
-                    </form>
-
                     <form action="/deletecomment/{{id}}" method="GET">
                    
                     <button type="submit" class="delete">Delete</button>
@@ -25,7 +19,11 @@
 
                 </div>
 
-                {{/each}}
+            {{else}}
+
+            <h2>No comments found.</h2>
+
+            {{/each}}
 
         </div>
     </div>

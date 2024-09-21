@@ -1,15 +1,5 @@
 import validator from "validator";
 
-export function verifyid (
-    
-    id: string,
-
-): void {
-
-    if (!id && id.length < 0) throw new Error("Something went wrong with the id");
-
-};
-
 export function validationRegister (
 
     username: string,
@@ -66,5 +56,17 @@ export function validateTopic (
     if (theme.length < 4 && theme.length > 50) return;
 
     if (text.length < 5 && text.length > 300) return;
+
+};
+
+export function validateFloatID (
+
+    id: number, 
+
+): void {
+
+    if (!id) return;
+
+    if (id < 0) return;
 
 };

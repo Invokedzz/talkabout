@@ -84,7 +84,7 @@ export class myserver {
 
         app.get('/createtopic', sendTopic, createtopicGET);
 
-        app.get('/receivetopics', createtopicPOST);
+        app.get('/receivetopics', sendTopic, createtopicPOST);
 
         app.get('/viewtopics', viewtopics);
 
