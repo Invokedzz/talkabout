@@ -15,7 +15,6 @@ import {
     } from "./validatorsdatabase";
 
 import { createPool } from "./database";
-import { QueryResult } from "mysql2";
 
 export const loginGET = (request: Request, response: Response): void => {
 
@@ -50,6 +49,7 @@ export const loginPOST = async (request: Request, response: Response): Promise <
     } catch (e) {
 
         console.error("Something happened: ", e);
+
         throw new Error("Something went wrong. Try again.");
 
     };
@@ -83,6 +83,7 @@ export const registerPOST = async (request: Request, response: Response): Promis
     } catch (e) {
 
         console.error("Something happened: ", e);
+
         throw new Error("Something went wrong. Try again.");
 
     };
@@ -102,6 +103,7 @@ export const profile = async (request: Request, response: Response): Promise <vo
     } catch (e) {
 
         console.error("Something happened: ", e);
+
         response.status(500).send("Something went wrong. Try again.");
 
     };
@@ -142,6 +144,7 @@ export const createtopicPOST = async (request: Request, response: Response): Pro
     } catch (e) {
 
         console.error("Something happened: ", e);
+
         throw new Error("Something went wrong. Try again.");
 
     };
@@ -159,6 +162,7 @@ export const viewtopics = async (request: Request, response: Response): Promise 
     } catch (e) {
 
         console.error("Something happened: ", e);
+
         throw new Error("Something went wrong. Try again.");
 
     };
@@ -180,6 +184,7 @@ export const deletetopic = async (request: Request, response: Response): Promise
     } catch (e) {
 
         console.error("Something happened: ", e);
+
         throw new Error("Something went wrong. Try again.");
 
     };
@@ -213,6 +218,7 @@ export const createcommentsPOST = async (request: Request, response: Response): 
     } catch (e) {
 
         console.error("Something happened: ", e);
+
         throw new Error("Something went wrong. Try again.");
 
     };
@@ -236,6 +242,7 @@ export const viewcomments = async (request: Request, response: Response): Promis
     } catch (e) {
 
         console.error("Something happened: ", e);
+
         throw new Error("Something went wrong. Try again.");
 
     };
@@ -253,6 +260,7 @@ export const deletecomment = async (request: Request, response: Response): Promi
     } catch (e) {
 
         console.error("Something happened: ", e);
+
         throw new Error("Something went wrong. Try again.");
 
     };
@@ -272,6 +280,7 @@ export const deletecommentPOST = async (request: Request, response: Response): P
     } catch (e) {
 
         console.error("Something happened: ", e);
+        
         throw new Error("Something went wrong. Try again.");
 
     };

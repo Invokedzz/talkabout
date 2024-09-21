@@ -30,20 +30,20 @@ import rateLimit from "express-rate-limit";
 
 import path from "path";
 
-const app = express();
+const application = express();
 
 const port = process.env.PORT || 8443;
 
-app.engine('handlebars', engine ({
+application.engine('handlebars', engine ({
 
     defaultLayout: 'main',
     partialsDir: path.join(__dirname, '../views/partials'),
 
 }));
 
-app.set('view engine', 'handlebars');
+application.set('view engine', 'handlebars');
 
-app.set('views', path.join(__dirname, '../views'));
+application.set('views', path.join(__dirname, '../views'));
 
 export class myserver {
 
@@ -58,59 +58,59 @@ export class myserver {
 
         });
 
-        app.use(limiter);
+        application.use(limiter);
 
     };
 
     private expresschanges (): void {
 
-        app.use(express.json());
+        application.use(express.json());
 
-        app.use(express.urlencoded({ extended: true }));
+        application.use(express.urlencoded({ extended: true }));
 
-        app.use(express.static('public'));
+        application.use(express.static('public'));
 
     };
 
     private serverget (): void {
 
-        app.get('/', validateLogin, loginGET);
+        application.get('/', validateLogin, loginGET);
 
-        app.get('/register', validateRegister, registerGET);
+        application.get('/register', validateRegister, registerGET);
 
-        app.get('/home', home);
+        application.get('/home', home);
 
-        app.get('/profile', profile);
+        application.get('/profile', profile);
 
-        app.get('/createtopic', sendTopic, createtopicGET);
+        application.get('/createtopic', sendTopic, createtopicGET);
 
-        app.get('/receivetopics', sendTopic, createtopicPOST);
+        application.get('/receivetopics', sendTopic, createtopicPOST);
 
-        app.get('/viewtopics', viewtopics);
+        application.get('/viewtopics', viewtopics);
 
-        app.get('/comment/:topicid', sendcomment, createcommentsGET);
+        application.get('/comment/:topicid', sendcomment, createcommentsGET);
 
-        app.get('/seecomments/:topicid', viewcomments);
+        application.get('/seecomments/:topicid', viewcomments);
 
-        app.get('/deletecomment/:id', deletecomment);
+        application.get('/deletecomment/:id', deletecomment);
 
-        app.get('*', error);
+        application.get('*', error);
 
     };
 
     private serverpost (): void {
 
-        app.post('/registeruser', validateRegister, registerPOST);
+        application.post('/registeruser', validateRegister, registerPOST);
 
-        app.post('/home', validateLogin, loginPOST);
+        application.post('/home', validateLogin, loginPOST);
 
-        app.post('/sendcomments/:topicid', sendcomment, createcommentsPOST);
+        application.post('/sendcomments/:topicid', sendcomment, createcommentsPOST);
 
-        app.post('/receivetopics', sendTopic, createtopicPOST);
+        application.post('/receivetopics', sendTopic, createtopicPOST);
 
-        app.post('/deletetopic/:id', sendTopic, deletetopic);
+        application.post('/deletetopic/:id', sendTopic, deletetopic);
 
-        app.post('/deleteconfirmcomment/:id', deletecommentPOST);
+        application.post('/deleteconfirmcomment/:id', deletecommentPOST);
 
     };
 
@@ -124,7 +124,7 @@ export class myserver {
 
         this.serverpost();
 
-            app.listen(port, (): void => {
+            application.listen(port, (): void => {
 
                 console.log(`http://localhost:${port}`);
     

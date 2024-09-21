@@ -14,11 +14,11 @@ import morgan from "morgan";
 
 import compression from "compression";
 
-const app = express();
+const application = express();
 
 export function security (): void {
 
-    app.use(helmet({
+    application.use(helmet({
 
         contentSecurityPolicy: false,
         dnsPrefetchControl: { allow: false },
@@ -47,7 +47,7 @@ export function security (): void {
 
     });
 
-    app.use(session({
+    application.use(session({
 
         secret: 'ILOVELINKINPARKANDTHEIRNEWSINGERHAHAHA',
         resave: false,
@@ -57,12 +57,12 @@ export function security (): void {
 
     }));
 
-    app.use(compression({
+    application.use(compression({
 
         level: 9, 
         threshold: 1024,
-        filter: (req: Request, res: Response) => {
-            return /text\/html/.test(res.getHeader('Content-Type') as string);
+        filter: (request: Request, response: Response) => {
+            return /text\/html/.test(response.getHeader('Content-Type') as string);
         },
         memLevel: 9, 
         chunkSize: 16384, 
@@ -71,9 +71,9 @@ export function security (): void {
 
     const csrf = csurf({ cookie: { httpOnly: true, secure: true } });
 
-    app.use(csrf);
+    application.use(csrf);
 
-    app.use(morgan('combined'));
+    application.use(morgan('combined'));
 
 
 };
