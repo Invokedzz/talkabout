@@ -18,7 +18,7 @@ import { createPool } from "./database";
 
 export const loginGET = (request: Request, response: Response): void => {
 
-    response.render('login')
+    response.render('login');
 
 };
 
