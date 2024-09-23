@@ -1,5 +1,4 @@
-FROM node
-FROM mysql
+FROM node:14.17.0-alpine3.12
 
 WORKDIR /src
 
@@ -7,9 +6,8 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY . ./
 
 EXPOSE 8443
 
-CMD bash -c "npm run dev"
-
+CMD ["npm", "run", "dev"]
