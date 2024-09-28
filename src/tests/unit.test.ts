@@ -1,4 +1,4 @@
-import { loginGETmiddleware, registerGETmiddleware, homemiddleware, createtopicGETmiddleware, createcommentsGETmiddleware, deletecommentPOSTmiddleware, deletetopicmiddleware, viewtopicsmiddleware, createtopicPOSTmiddleware } from "../middlewares";
+import { loginGETmiddleware, registerGETmiddleware, homemiddleware, createtopicGETmiddleware, createcommentsGETmiddleware, deletecommentPOSTmiddleware, deletetopicmiddleware, viewtopicsmiddleware, createtopicPOSTmiddleware, registerPOSTmiddleware } from "../middlewares";
 
 import { Request, Response } from "express";
 
@@ -301,6 +301,60 @@ describe("Testing topic post", (): void => {
         expect(mockQuery).toHaveBeenCalledWith('INSERT INTO topics (title, theme, text) VALUES (?, ?, ?)', ["testing", "testing", "testing"]);
 
         expect(Response.render).toHaveBeenCalledWith("receivetopics", { title: "testing" });
+
+    });
+
+});
+
+describe ("Testing the register post function", (): void => {
+
+    let Request: Partial <Request>;
+
+    let Response: Partial <Response>;
+
+    const mockQuery = jest.fn();
+
+    beforeEach((): void => {
+
+        Request = {
+
+            body: {
+
+                username: "testing",
+
+                email: "testing@gmail.com",
+
+                password: "$2a$10$IyZhrYpjFIdCPp5KWV0ulOD2O1RgDWLa9sXVDocwA9Z9iP8NVNYEO",
+
+            },
+
+        };
+
+        Response = {
+
+            render: jest.fn(),
+
+        };
+
+        (createPool.query as jest.Mock) = mockQuery;
+
+    });
+
+    afterEach((): void => {
+
+        jest.clearAllMocks();
+
+    });
+
+    it ("Should execute the database properly", async (): Promise <void> => {
+
+        await registerPOSTmiddleware(Request as Request, Response as Response);
+
+        const testMocks = [{username: "testing", email: "testing@gmail.com", password: "$2a$10$IyZhrYpjFIdCPp5KWV0ulOD2O1RgDWLa9sXVDocwA9Z9iP8NVNYEO"}];
+
+        mockQuery.mockResolvedValue(testMocks);
+
+        expect(mockQuery).toHaveBeenCalledWith('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', ["testing", "testing@gmail.com", "$2a$10$IyZhrYpjFIdCPp5KWV0ulOD2O1RgDWLa9sXVDocwA9Z9iP8NVNYEO"]);
 
     });
 
