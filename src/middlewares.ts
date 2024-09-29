@@ -202,7 +202,7 @@ export async function createcommentsPOSTmiddleware (request: Request, response: 
 
     const comment: string = request.body.comment;
 
-    const topicid: number = parseInt(topicidparams);
+    let topicid: number = parseInt(topicidparams);
 
     try {
 

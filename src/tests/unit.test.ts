@@ -1,8 +1,9 @@
-import { loginGETmiddleware, registerGETmiddleware, homemiddleware, createtopicGETmiddleware, createcommentsGETmiddleware, deletecommentPOSTmiddleware, deletetopicmiddleware, viewtopicsmiddleware, createtopicPOSTmiddleware, registerPOSTmiddleware } from "../middlewares";
+import { loginGETmiddleware, registerGETmiddleware, homemiddleware, createtopicGETmiddleware, createcommentsGETmiddleware, deletecommentPOSTmiddleware, deletetopicmiddleware, viewtopicsmiddleware, createtopicPOSTmiddleware, registerPOSTmiddleware, createcommentsPOSTmiddleware, viewcommentsmiddlewares, deletecommentmiddleware,  } from "../middlewares";
 
 import { Request, Response } from "express";
 
 import { createPool } from "../database";
+import { create } from "express-handlebars";
 
 describe("Verifying all the GET methods", (): void => {
 
@@ -306,7 +307,8 @@ describe("Testing topic post", (): void => {
 
 });
 
-describe ("Testing the register post function", (): void => {
+
+describe("Create topic post middleware", (): void => {
 
     let Request: Partial <Request>;
 
@@ -319,12 +321,14 @@ describe ("Testing the register post function", (): void => {
         Request = {
 
             body: {
+            
+                comment: "testing",
 
-                username: "testing",
+            },
 
-                email: "testing@gmail.com",
+            params: {
 
-                password: "$2a$10$IyZhrYpjFIdCPp5KWV0ulOD2O1RgDWLa9sXVDocwA9Z9iP8NVNYEO",
+                topicid: "1",
 
             },
 
@@ -346,16 +350,17 @@ describe ("Testing the register post function", (): void => {
 
     });
 
-    it ("Should execute the database properly", async (): Promise <void> => {
+    it ("Should return the values successfully", async (): Promise <void> => {
 
-        await registerPOSTmiddleware(Request as Request, Response as Response);
-
-        const testMocks = [{username: "testing", email: "testing@gmail.com", password: "$2a$10$IyZhrYpjFIdCPp5KWV0ulOD2O1RgDWLa9sXVDocwA9Z9iP8NVNYEO"}];
-
-        mockQuery.mockResolvedValue(testMocks);
-
-        expect(mockQuery).toHaveBeenCalledWith('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', ["testing", "testing@gmail.com", "$2a$10$IyZhrYpjFIdCPp5KWV0ulOD2O1RgDWLa9sXVDocwA9Z9iP8NVNYEO"]);
+        
+            await createcommentsPOSTmiddleware(Request as Request, Response as Response);
+        
+            expect(createPool.query).toHaveBeenCalledWith(
+                'INSERT INTO comment (comments, topic_id) VALUES (?, ?)',
+                ['testing', 1] // topicid como número
+            );
+            expect(Response.render).toHaveBeenCalledWith('successcomments', { comment: 'testing', topicid: 1 });
+        });
+        
 
     });
-
-});
