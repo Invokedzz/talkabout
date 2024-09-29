@@ -352,15 +352,69 @@ describe("Create topic post middleware", (): void => {
 
     it ("Should return the values successfully", async (): Promise <void> => {
 
+        await createcommentsPOSTmiddleware(Request as Request, Response as Response);
         
-            await createcommentsPOSTmiddleware(Request as Request, Response as Response);
-        
-            expect(createPool.query).toHaveBeenCalledWith(
+        expect(createPool.query).toHaveBeenCalledWith(
                 'INSERT INTO comment (comments, topic_id) VALUES (?, ?)',
-                ['testing', 1] // topicid como número
-            );
-            expect(Response.render).toHaveBeenCalledWith('successcomments', { comment: 'testing', topicid: 1 });
+                ['testing', 1] 
+        );
+
+        expect(Response.render).toHaveBeenCalledWith('successcomments', { comment: 'testing', topicid: 1 });
+
         });
         
 
     });
+
+describe ("Should handle view comments middleware properly", (): void => {
+
+    let Request: Partial <Request>;
+
+    let Response: Partial <Response>;
+
+    const mockQuery = jest.fn();
+
+    beforeEach((): void => {
+
+        Request = {
+
+            params: {
+
+                topicid: "1",
+
+            },
+
+        };
+
+        Response = {
+
+            render: jest.fn(),
+
+        };
+
+        (createPool.query as jest.Mock) = mockQuery;
+
+    });
+
+    afterEach((): void => {
+
+        jest.clearAllMocks();
+
+    });
+
+    it ("Should access the database successfully", async (): Promise <void> => {
+
+        const rows = [{title: "testing", theme: "testing", text: "testing"}];
+
+        mockQuery.mockResolvedValue([rows]),
+
+        await viewcommentsmiddlewares(Request as Request, Response as Response);
+
+        expect(mockQuery).toHaveBeenCalledWith('SELECT * FROM comment JOIN topics ON comment.topic_id = topics.id WHERE topics.id = ?', [1]);
+
+        expect(Response.render).toHaveBeenCalledWith('viewcomments', { rows });
+
+    });
+
+});
+
