@@ -1,9 +1,8 @@
-import { loginGETmiddleware, registerGETmiddleware, homemiddleware, createtopicGETmiddleware, createcommentsGETmiddleware, deletecommentPOSTmiddleware, deletetopicmiddleware, viewtopicsmiddleware, createtopicPOSTmiddleware, registerPOSTmiddleware, createcommentsPOSTmiddleware, viewcommentsmiddlewares, deletecommentmiddleware,  } from "../middlewares";
+import { loginGETmiddleware, registerGETmiddleware, homemiddleware, createtopicGETmiddleware, createcommentsGETmiddleware, deletecommentPOSTmiddleware, deletetopicmiddleware, viewtopicsmiddleware, createtopicPOSTmiddleware, registerPOSTmiddleware, createcommentsPOSTmiddleware, viewcommentsmiddlewares, deletecommentmiddleware } from "../middlewares";
 
 import { Request, Response } from "express";
 
 import { createPool } from "../database";
-import { create } from "express-handlebars";
 
 describe("Verifying all the GET methods", (): void => {
 
@@ -413,6 +412,48 @@ describe ("Should handle view comments middleware properly", (): void => {
         expect(mockQuery).toHaveBeenCalledWith('SELECT * FROM comment JOIN topics ON comment.topic_id = topics.id WHERE topics.id = ?', [1]);
 
         expect(Response.render).toHaveBeenCalledWith('viewcomments', { rows });
+
+    });
+
+});
+
+describe ("Delete comment middleware test", (): void => {
+
+    let Request: Partial <Request>;
+
+    let Response: Partial <Response>;
+
+    const mockQuery = jest.fn();
+
+    beforeEach((): void => {
+
+        Request = {};
+
+        Response = {
+
+            render: jest.fn(),
+
+        };
+
+    });
+
+    afterEach((): void => {
+
+        jest.clearAllMocks();
+
+    });
+
+    it ("Should select elements properly", async (): Promise <void> => {
+
+        const gatherid = [{title: "testing", theme: "testing", text: "testing"}];
+
+        mockQuery.mockResolvedValue([gatherid]),
+
+        await deletecommentmiddleware(Request as Request, Response as Response);
+
+        expect(createPool.query).toHaveBeenCalledWith('SELECT * FROM comment');
+
+        expect(Response.render).toHaveBeenCalledWith('delete', { gatherid: gatherid });
 
     });
 
