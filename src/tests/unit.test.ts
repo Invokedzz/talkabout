@@ -610,15 +610,23 @@ describe ("Creating a test for register post middleware", (): void => {
 
     it ("Should handle it's properties successfully", async (): Promise <void> => {
 
-        const [username] = [{username: "testing", email: "testing", password: passwordHash}];
-
-        mockQuery.mockResolvedValue(username);
-
         await registerPOSTmiddleware(Request as Request, Response as Response);
+
+        const username = [{username: "testing", email: "testing", password: passwordHash}];
+
+        mockQuery.mockResolvedValue([username]);
 
      //   expect(mockQuery).toHaveBeenCalledWith('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', ['testing', 'testing', passwordHash]);
 
      // Deve ter alguma forma de igualar as senhas, mas como?
+
+      //  expect (Response.render).toHaveBeenCalledWith('receiveuser', { username: username });
+
+    });
+
+    it ("Should handle the errors properly", async (): Promise <void> => {
+
+
 
     });
 
@@ -634,9 +642,23 @@ describe ("Creating test for login post middleware", (): void => {
 
     beforeEach((): void => {
 
-        Request = {};
+        Request = {
 
-        Response = {};
+            body: {
+
+                username: "testing",
+
+                password: "testing",
+
+            },
+
+        };
+
+        Response = {
+
+            render: jest.fn(),
+
+        };
 
         (createPool.query as jest.Mock) = mockQuery;
 
@@ -650,7 +672,17 @@ describe ("Creating test for login post middleware", (): void => {
 
     it ("Should treat data properly", async (): Promise <void> => {
 
+        await loginPOSTmiddleware(Request as Request, Response as Response);
 
+        const username = [{username: "testing"}];
+
+        const password = [{password: "testing"}];
+
+        mockQuery.mockResolvedValue([username, password]);
+
+        expect(createPool.query).toHaveBeenCalledWith('SELECT * FROM users WHERE username = ?', ['testing']);
+
+        expect(Response.render).toHaveBeenCalledWith('home', { username: username, password: password });
 
     });
 
