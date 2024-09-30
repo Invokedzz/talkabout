@@ -1,5 +1,6 @@
 import { loginGETmiddleware, registerGETmiddleware, homemiddleware, createtopicGETmiddleware, createcommentsGETmiddleware, deletecommentPOSTmiddleware, deletetopicmiddleware, viewtopicsmiddleware, createtopicPOSTmiddleware, registerPOSTmiddleware, createcommentsPOSTmiddleware, viewcommentsmiddlewares, deletecommentmiddleware, profilemiddleware, loginPOSTmiddleware } from "../middlewares";
 
+import bcrypt from "bcryptjs";
 
 import { Request, Response } from "express";
 
@@ -571,13 +572,31 @@ describe ("Creating a test for register post middleware", (): void => {
 
     let Response: Partial <Response>;
 
+    let passwordHash = bcrypt.hashSync("password", 10);
+
     const mockQuery = jest.fn();
 
     beforeEach((): void => {
 
-        Request = {};
+        Request = {
 
-        Response = {};
+            body: {
+
+                username: "testing",
+
+                email: "testing",
+
+                password: passwordHash,
+
+            },
+
+        };
+
+        Response = {
+
+            render: jest.fn(),
+
+        };
 
         (createPool.query as jest.Mock) = mockQuery;
 
@@ -591,7 +610,15 @@ describe ("Creating a test for register post middleware", (): void => {
 
     it ("Should handle it's properties successfully", async (): Promise <void> => {
 
+        const [username] = [{username: "testing", email: "testing", password: passwordHash}];
 
+        mockQuery.mockResolvedValue(username);
+
+        await registerPOSTmiddleware(Request as Request, Response as Response);
+
+     //   expect(mockQuery).toHaveBeenCalledWith('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', ['testing', 'testing', passwordHash]);
+
+     // Deve ter alguma forma de igualar as senhas, mas como?
 
     });
 
@@ -622,6 +649,8 @@ describe ("Creating test for login post middleware", (): void => {
     });
 
     it ("Should treat data properly", async (): Promise <void> => {
+
+
 
     });
 
