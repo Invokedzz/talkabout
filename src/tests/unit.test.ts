@@ -215,7 +215,13 @@ describe("Testing the delete topic method", (): void => {
 
     });
 
-    it ("Should return an error", async (): Promise <void> => {
+    it ("Should throw an error successfully", async (): Promise <void> => {
+
+        await deletetopicmiddleware(Request as Request, Response as Response);
+
+        mockQuery.mockRejectedValueOnce(new Error("Something went wrong. Try again."));
+
+        await expect (deletetopicmiddleware(Request as Request, Response as Response)).rejects.toThrow("Something went wrong. Try again.");
 
     });
 
@@ -263,7 +269,11 @@ describe("Test for creating topics", (): void => {
 
     });
 
-    it ("Should return an error", async (): Promise <void> => {
+    it ("Should throw an error successfully", async (): Promise <void> => {
+
+        mockQuery.mockRejectedValueOnce(new Error("Something went wrong. Try again."));
+
+        await expect (viewtopicsmiddleware(Request as Request, Response as Response)).rejects.toThrow("Something went wrong. Try again.");
 
     });
 
@@ -323,7 +333,13 @@ describe("Testing topic post", (): void => {
 
     });
 
-    it ("Should return an error", async (): Promise <void> => {
+    it ("Should throw an error", async (): Promise <void> => {
+
+        await createtopicPOSTmiddleware(Request as Request, Response as Response);
+
+        mockQuery.mockRejectedValueOnce(new Error("Something went wrong. Try again."));
+
+        await expect (createtopicPOSTmiddleware(Request as Request, Response as Response)).rejects.toThrow("Something went wrong. Try again.");
 
     });
 
@@ -374,22 +390,26 @@ describe("Create topic post middleware", (): void => {
 
     it ("Should return the values successfully", async (): Promise <void> => {
 
-        await createcommentsPOSTmiddleware(Request as Request, Response as Response);
+       await createcommentsPOSTmiddleware(Request as Request, Response as Response);
         
-        expect(createPool.query).toHaveBeenCalledWith(
-                'INSERT INTO comment (comments, topic_id) VALUES (?, ?)',
-                ['testing', 1] 
-        );
+    expect(createPool.query).toHaveBeenCalledWith(
+            'INSERT INTO comment (comments, topic_id) VALUES (?, ?)',
+            ['testing', 1] 
+    );
 
-        expect(Response.render).toHaveBeenCalledWith('successcomments', { comment: 'testing', topicid: 1 });
-
-        });
-        
-        it ("Should return an error", async (): Promise <void> => {
-
-        });
+    expect(Response.render).toHaveBeenCalledWith('successcomments', { comment: 'testing', topicid: 1 });
 
     });
+        
+    it ("Should return an error successfully", async (): Promise <void> => {
+
+        await createcommentsPOSTmiddleware(Request as Request, Response as Response);
+
+        mockQuery.mockRejectedValue(new Error("Something went wrong. Try again."));
+
+    });
+
+});
 
 describe ("Should handle view comments middleware properly", (): void => {
 
@@ -441,9 +461,7 @@ describe ("Should handle view comments middleware properly", (): void => {
 
     });
 
-    it ("Should return an error", async (): Promise <void> => {
-
-    });
+    // Teria que retornar um Response.status na parte de erro. Depois mexo aqui.
 
 });
 
@@ -487,7 +505,11 @@ describe ("Delete comment middleware test", (): void => {
 
     });
 
-    it ("Should return an error", async (): Promise <void> => {
+    it ("Should return an error successfully", async (): Promise <void> => {
+
+        mockQuery.mockRejectedValue(new Error("Something went wrong. Try again."));
+
+        await deletecommentmiddleware(Request as Request, Response as Response);
 
     });
 
@@ -534,6 +556,10 @@ describe ("Testing the user profile middleware", (): void => {
     });
 
     it ("Should return an error", async (): Promise <void> => {
+
+        mockQuery.mockRejectedValue(new Error("Something went wrong. Try again."));
+
+        await profilemiddleware(Request as Request, Response as Response);
 
     });
 
