@@ -564,3 +564,65 @@ describe ("Testing the user profile middleware", (): void => {
     });
 
 });
+
+describe ("Creating a test for register post middleware", (): void => {
+
+    let Request: Partial <Request>;
+
+    let Response: Partial <Response>;
+
+    const mockQuery = jest.fn();
+
+    beforeEach((): void => {
+
+        Request = {};
+
+        Response = {};
+
+        (createPool.query as jest.Mock) = mockQuery;
+
+    });
+
+    afterEach((): void => {
+
+        jest.clearAllMocks();
+
+    });
+
+    it ("Should handle it's properties successfully", async (): Promise <void> => {
+
+
+
+    });
+
+});
+
+describe ("Creating test for login post middleware", (): void => {
+
+    let Request: Partial <Request>;
+
+    let Response: Partial <Response>;
+
+    const mockQuery = jest.fn();
+
+    beforeEach((): void => {
+
+        Request = {};
+
+        Response = {};
+
+        (createPool.query as jest.Mock) = mockQuery;
+
+    });
+
+    afterEach((): void => {
+
+        jest.clearAllMocks();
+
+    });
+
+    it ("Should treat data properly", async (): Promise <void> => {
+
+    });
+
+});
