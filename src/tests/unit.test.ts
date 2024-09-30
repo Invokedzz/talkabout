@@ -460,3 +460,44 @@ describe ("Delete comment middleware test", (): void => {
 
 });
 
+describe ("Testing the user profile middleware", (): void => {
+
+    let Request: Partial <Request>;
+
+    let Response: Partial <Response>;
+
+    const mockQuery = jest.fn();
+
+    beforeEach((): void => {
+
+        Request = {};
+
+        Response = {
+
+            render: jest.fn(),
+
+        };
+
+    });
+
+    afterEach((): void => {
+
+        jest.clearAllMocks();
+
+    });
+
+    (createPool.query as jest.Mock) = mockQuery;
+
+    it ("Should return success properly", async (): Promise <void> => {
+
+        const [user] = [{text: "testing", theme: "testing", title: "testing"}];
+
+        mockQuery.mockResolvedValue(user),
+
+        await profilemiddleware(Request as Request, Response as Response);
+
+        expect(Response.render).toHaveBeenCalledWith('profile', { user: user });
+
+    });
+
+});
