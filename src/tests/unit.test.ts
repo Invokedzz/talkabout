@@ -99,7 +99,7 @@ describe("Rendering the comments page", (): void => {
 
     });
 
-    it ("Should return the id properly and render the page", (): void => {
+    it ("Should return the id properly and render the page", async (): Promise <void> => {
 
         queryMock.mockResolvedValue([{comment: "test"}]);
 
