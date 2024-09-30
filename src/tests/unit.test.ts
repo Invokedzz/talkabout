@@ -1,4 +1,4 @@
-import { loginGETmiddleware, registerGETmiddleware, homemiddleware, createtopicGETmiddleware, createcommentsGETmiddleware, deletecommentPOSTmiddleware, deletetopicmiddleware, viewtopicsmiddleware, createtopicPOSTmiddleware, registerPOSTmiddleware, createcommentsPOSTmiddleware, viewcommentsmiddlewares, deletecommentmiddleware, profilemiddleware } from "../middlewares";
+import { loginGETmiddleware, registerGETmiddleware, homemiddleware, createtopicGETmiddleware, createcommentsGETmiddleware, deletecommentPOSTmiddleware, deletetopicmiddleware, viewtopicsmiddleware, createtopicPOSTmiddleware, registerPOSTmiddleware, createcommentsPOSTmiddleware, viewcommentsmiddlewares, deletecommentmiddleware, profilemiddleware, loginPOSTmiddleware } from "../middlewares";
 
 
 import { Request, Response } from "express";
@@ -155,6 +155,16 @@ describe("Test for delete comment", (): void => {
 
     });
 
+    it ("Should throw an error", async (): Promise <void> => {
+
+        mockQuery.mockRejectedValueOnce(new Error("Something went wrong. Try again."));
+
+        (createPool.query as jest.Mock) = mockQuery;
+
+        await expect (deletecommentPOSTmiddleware(Request as Request, Response as Response)).rejects.toThrow("Something went wrong. Try again.");
+
+    });
+
 });
 
 describe("Testing the delete topic method", (): void => {
@@ -205,6 +215,10 @@ describe("Testing the delete topic method", (): void => {
 
     });
 
+    it ("Should return an error", async (): Promise <void> => {
+
+    });
+
 });
 
 describe("Test for creating topics", (): void => {
@@ -246,6 +260,10 @@ describe("Test for creating topics", (): void => {
         expect(mockQuery).toHaveBeenCalledWith('SELECT * FROM topics');
 
         expect(Response.render).toHaveBeenCalledWith("viewtopics", { topics: mockTests });
+
+    });
+
+    it ("Should return an error", async (): Promise <void> => {
 
     });
 
@@ -302,6 +320,10 @@ describe("Testing topic post", (): void => {
         expect(mockQuery).toHaveBeenCalledWith('INSERT INTO topics (title, theme, text) VALUES (?, ?, ?)', ["testing", "testing", "testing"]);
 
         expect(Response.render).toHaveBeenCalledWith("receivetopics", { title: "testing" });
+
+    });
+
+    it ("Should return an error", async (): Promise <void> => {
 
     });
 
@@ -363,6 +385,9 @@ describe("Create topic post middleware", (): void => {
 
         });
         
+        it ("Should return an error", async (): Promise <void> => {
+
+        });
 
     });
 
@@ -416,6 +441,10 @@ describe ("Should handle view comments middleware properly", (): void => {
 
     });
 
+    it ("Should return an error", async (): Promise <void> => {
+
+    });
+
 });
 
 describe ("Delete comment middleware test", (): void => {
@@ -458,6 +487,10 @@ describe ("Delete comment middleware test", (): void => {
 
     });
 
+    it ("Should return an error", async (): Promise <void> => {
+
+    });
+
 });
 
 describe ("Testing the user profile middleware", (): void => {
@@ -497,6 +530,10 @@ describe ("Testing the user profile middleware", (): void => {
         await profilemiddleware(Request as Request, Response as Response);
 
         expect(Response.render).toHaveBeenCalledWith('profile', { user: user });
+
+    });
+
+    it ("Should return an error", async (): Promise <void> => {
 
     });
 
